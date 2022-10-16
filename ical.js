@@ -57,6 +57,8 @@ class Component {
     }
 
     datafy(dict) {
+        //modifies a dictionary, where all the values tied to some common keys (ical properties) are
+        //to some more useful javascript objects (instead of strings)
         for(const [key, value] of Object.entries(dict)) {
             let datafy = this.datafiable[key];
             if(datafy !== undefined) {
