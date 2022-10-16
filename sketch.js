@@ -37,34 +37,7 @@ function draw() {
 }
 
 function handleFile(file) {
-  //print(file.data);
-  let cal = ICAL.Component.fromString(file.data);
-  print(cal)
-  //let calendar = new Calendar(file.data);
-  //print(calendar);
-  /*
-  print(file.data.split('\r\n'));
-  curr = -1;
-  events = [];
-  is_event = false;
-  for(const line of file.data.split('\r\n')) {
-    if(line === 'BEGIN:VEVENT') {
-      is_event = true;
-      ++curr;
-      continue;
-    }
+  let calendar = new Calendar(file.data);
+  print(calendar);
 
-    if(!is_event) continue;
-    if(line === 'END:VEVENT') {
-      is_event = false;
-      continue;
-    }
-
-    if(events[curr] === undefined) events[curr] = []
-    events[curr].push(line)
-    print(line);
-  }
-
-  print();
-  print(events);*/
 }

@@ -1,7 +1,11 @@
+class Component {
+    constructor(_text) {
+        if(this.constructor === Component) {
+            throw 'Component is an abstract class and cannot be instantiated.';
+        }
+    }
 
-
-class Calendar {
-    constructor(text) {
+    linefy(text) {
         this.data = {};
         let lines = [];
         let curr_line = [];
@@ -22,12 +26,45 @@ class Calendar {
             curr_line.push(text[i]);
         }
 
+        return lines;
+    }
+
+    splitfy(line) {
+        let key = [];
+        let value = []
+        let is_value = false
+        for(const char of line) {
+            if (is_value) {
+                value.push(char);
+                continue;
+            }
+            if (char === ':' || char === ';') {
+                is_value = true;
+                continue;
+            }
+
+            key.push(char);
+        }
+
+        key = key.join('');
+        value = value.join('');
+
+        return [key, value];
+    }
+}
+
+class Calendar extends Component {
+    constructor(text) {
+        super(text);
+
+        let lines = this.linefy(text);
+
         if(lines[0] !== 'BEGIN:VCALENDAR') {
             throw 'Not a VCALENDAR!';
         }
 
         if(lines[lines.length - 1] !== 'END:VCALENDAR') {
-            throw 'VCALENDAR not terminated!'
+            throw 'VCALENDAR not terminated!';
         }
 
         lines.splice(1, -2);
@@ -53,90 +90,21 @@ class Calendar {
                 continue;
             }
 
-            let key = [];
-            let value = []
-            let is_value = false
-            for(const char of line) {
-                if (is_value) {
-                    value.push(char);
-                    continue;
-                }
-                if (char === ':' || char === ';') {
-                    is_value = true;
-                    continue;
-                }
-
-                key.push(char);
-            }
-
-            key = key.join('');
-            print(key);
-            value = value.join('');
+            let [key, value] = this.splitfy(line)
             this.data[key] = value;
         }
-    }
-
-    get getData() {
-        return this.data;
-    }
-
-    get getEvents() {
-        return this.events;
     }
 }
 
-class Event {
+class Event extends Component {
     constructor(text) {
-        this.data = {};
-        let lines = [];
-        let curr_line = [];
+        super(text);
+        let lines = this.linefy(text);
 
-        for(let i = 0; i < text.length; ++i) {
-            if(text[i] === '\r' && text[i + 1] === '\n') {
-                ++i;
-                if (text[i + 1] === ' ') {
-                    curr_line.push('\r\n');
-                    continue;
-                }
-
-                lines.push(curr_line.join(''))
-                curr_line = [];
-                continue;
-            }
-
-            curr_line.push(text[i]);
-        }
-        print("New event:")
-        for(const line of lines) {
-            print(line);
-            print("");
-        } print("");
-
-        for(const line of lines) {
-            let key = [];
-            let value = []
-            let is_value = false
-            for(const char of line) {
-                if(is_value) {
-                    value.push(char);
-                    continue;
-                }
-
-                if (char === ':' || char === ';') {
-                    is_value = true;
-                    continue;
-                }
-
-                key.push(char);
-            }
-            key = key.join('');
-            value = value.join('');
+        for (const line of lines) {
+            let [key, value] = this.splitfy(line);
             this.data[key] = value;
         }
 
-    }
-
-    get getData() {
-        return this.data;
     }
 }
