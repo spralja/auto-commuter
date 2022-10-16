@@ -1,3 +1,5 @@
+
+
 class Component {
     constructor(_text) {
         if(this.constructor === Component) {
@@ -6,6 +8,7 @@ class Component {
     }
 
     linefy(text) {
+        // Turns a ical-string (text) into an array of lines and returns it
         this.data = {};
         let lines = [];
         let curr_line = [];
@@ -30,6 +33,7 @@ class Component {
     }
 
     splitfy(line) {
+        //splits a line into a key, value pair and returns them
         let key = [];
         let value = []
         let is_value = false
@@ -50,6 +54,33 @@ class Component {
         value = value.join('');
 
         return [key, value];
+    }
+
+    datafy(dict) {
+        for(const [key, value] of Object.entries(dict)) {
+            let datafy = this.datafiable[key];
+            if(datafy !== undefined) {
+                dict[key] = datafy(value);
+            }
+        }
+    }
+
+    #valueToDate(value) {
+        value = value.split(':');
+        if(value.length === 2) value = [value[1]];
+        value = value[0];
+        let year = value.substring(0, 4);
+        let month = value.substring(4, 6);
+        let day = value.substring(6, 8);
+        let hour = value.substring(9, 11);
+        let minute = value.substring(11, 13);
+        let second = value.substring(13, 15);
+        return new Date(year, month, day, hour, minute, second);
+    }
+
+    datafiable = {
+        'DTSTART': this.#valueToDate,
+        'DTEND': this.#valueToDate,
     }
 }
 
@@ -93,6 +124,8 @@ class Calendar extends Component {
             let [key, value] = this.splitfy(line)
             this.data[key] = value;
         }
+
+        this.datafy(this.data);
     }
 }
 
@@ -106,5 +139,6 @@ class Event extends Component {
             this.data[key] = value;
         }
 
+        this.datafy(this.data);
     }
 }
