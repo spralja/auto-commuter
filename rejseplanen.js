@@ -24,6 +24,7 @@ class RejseplanenClient {
 
     location(input) {
         let service = 'location';
+        return this.request(service, {'input': input});
     }
 
     trip(options) {

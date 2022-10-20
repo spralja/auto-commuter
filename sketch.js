@@ -1,8 +1,10 @@
 let departure_text, departure_prompt, departure_button;
 let destination_text, destination_prompt, destination_button;
 
-let departure_location_x, departure_location_y;
-let destination_location_x, destination_location_y;
+let departure_location_x, departure_location_y, departure_location_name;
+let destination_location_x, destination_location_y, destination_location_name;
+
+let generate_calendar_button;
 
 let input;
 
@@ -36,16 +38,19 @@ function setup() {
   destination_button = createButton('submit');
   destination_button.position(destination_prompt.x + destination_prompt.width, destination_prompt.y);
   destination_button.size(destination_button.width, destination_prompt.height);
-  destination_button.mousePressed(destination_submit);
+  destination_button.mousePressed(submit_destination);
 
+  generate_calendar_button = createButton('generate calendar');
+  generate_calendar_button.position(10, 200);
+  generate_calendar_button.mousePressed(generate_calendar);
 }
 
 function submit_departure() {
+  if(!departure_prompt.value()) throw 'Departure field cannot be empty!';
+
   let departure = departure_prompt.value();
-  let response = rejseplanen_client.request(
-      'location',
-      {'input': departure}
-  )
+
+  let response = rejseplanen_client.location(departure);
 
   let location = response['LocationList']['CoordLocation'][0];
 
@@ -53,28 +58,52 @@ function submit_departure() {
 
   departure_location_x = location.x;
   departure_location_y = location.y;
+  departure_location_name = location.name.split(' ').join('%20');
 
   print(departure_location_x);
   print(departure_location_y);
 }
 
-function destination_submit() {
+function submit_destination() {
+  if(!destination_prompt.value()) throw "Destination field cannot be empty!";
+
   let destination = destination_prompt.value();
-  let response = rejseplanen_client.request(
-      'location',
-      {'input': destination}
-  )
+
+  let response = rejseplanen_client.location(destination);
 
   let location = response['LocationList']['CoordLocation'][0];
 
-  departure_prompt.value(location.name);
+  destination_prompt.value(location.name);
 
   destination_location_x = location.x;
   destination_location_y = location.y;
+  destination_location_name = location.name.split(' ').join('%20');
 
   print(destination_location_x);
   print(destination_location_y);
 }
+
+function generate_calendar() {
+  if(!departure_location_name) submit_departure();
+
+  if(!destination_location_name) submit_destination();
+
+  let response = rejseplanen_client.request('trip', {
+    'originCoordX': departure_location_x,
+    'originCoordY': departure_location_y,
+    'originCoordName': departure_location_name,
+    'destCoordX': destination_location_x,
+    'destCoordY': destination_location_y,
+    'destCoordName': destination_location_name,
+    'date': '21.10.22',
+    'time': '12.15',
+    'searchForArrival': 1,
+  });
+
+  print(response);
+}
+
+
 
 let ical;
 
