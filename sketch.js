@@ -8,7 +8,7 @@ let generate_calendar_button;
 
 let input;
 
-let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bin/rest.exe');
+let rejseplanen_client = new RejseplanenClient('https://xmlopen.rejseplanen.dk/bin/rest.exe');
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
