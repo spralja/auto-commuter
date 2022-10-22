@@ -14,6 +14,11 @@ class Component {
         this.datafy();
     }
 
+    /**
+     * Splits an ical string into an array where each element is a property: value
+     * @param {String} text
+     * @returns {Array[String]}
+     */
     static linefy(text) {
         // Turns a ical-string (text) into an array of lines and returns it
         let lines = [];
@@ -37,6 +42,11 @@ class Component {
         return lines;
     }
 
+    /**
+     * Splits a property string into key value pairs
+     * @param {string} line the line to be split
+     * @returns {[string, string]}
+     */
     static splitfy(line) {
         //splits a line into a key, value pair and returns them
         let key = [];
@@ -61,6 +71,10 @@ class Component {
         return [key, value];
     }
 
+    /**
+     * Parses key value pairs if they have special parsing requirements
+     * Like for example dates
+     */
     datafy() {
         //modifies a dictionary, where all the values tied to some common keys (ical properties) are
         //to some more useful javascript objects (instead of strings)
@@ -72,23 +86,10 @@ class Component {
         }
     }
 
-    #valueToDate(value) {
-        value = value.split(':');
-        if(value.length === 2) value = [value[1]];
-        value = value[0];
-        let year = value.substring(0, 4);
-        let month = value.substring(4, 6);
-        let day = value.substring(6, 8);
-        let hour = value.substring(9, 11);
-        let minute = value.substring(11, 13);
-        let second = value.substring(13, 15);
-        return new Date(year, month, day, hour, minute, second);
-    }
-
-    #DateToValue(value) {
-
-    }
-
+    /**
+     * Object with fields for each iCalendar data-type which requires special parsing
+     * @type {object}
+     */
     #datafiable = {
         'DTSTART': ICalendarDate,
         'DTEND': ICalendarDate,
@@ -97,6 +98,10 @@ class Component {
         'LAST-MODIFIED': ICalendarDate,
     }
 
+    /**
+     * Converts the object into an iCalendar string
+     * @returns {string}
+     */
     toICS() {
         let ICS = [];
         for(const element of Object.entries(this.data)) {
@@ -161,10 +166,18 @@ class Calendar extends Component {
         return calendar;
     }
 
+    /**
+     * Adds an event to the calendar
+     * @param event
+     */
     addEvent(event) {
         this.events.push(event);
     }
 
+    /**
+     * Converts the object into an iCalendar string
+     * @returns {string}
+     */
     toICS() {
         let ICS = ['BEGIN:VCALENDAR', super.toICS()];
         for (const event of this.events) ICS.push(event.toICS());
@@ -200,6 +213,10 @@ class Event extends Component {
         return new Event(data);
     }
 
+    /**
+     * Converts the object into an iCalendar string
+     * @returns {string}
+     */
     toICS() {
         let ICS = ['BEGIN:VEVENT', super.toICS(), 'END:VENVET'];
 
