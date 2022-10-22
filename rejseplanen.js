@@ -15,7 +15,7 @@ class RejseplanenClient {
         let options_string = options_array.join('&');
 
         let url = `${this.base_url}/${service}?${options_string}${this.format}`
-        print(url);
+        print(`requesting: ${url}`);
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open('GET', url, false);
         xmlHttp.send(null);
@@ -27,8 +27,14 @@ class RejseplanenClient {
         return this.request(service, {'input': input});
     }
 
-    trip(options) {
+    trip(options, datetime, arrival) {
         let service = 'trip'
+        let splitDate = this.#splitDate(datetime);
+        if(splitDate) [options['date'], options['time']] = splitDate;
+        options['searchForArrival'] = arrival ? 1 : 0;
+
+        return this.request(service, options);
+
         /*
          required:
          originId || originCoordX, originCoordY, originCoordName;
@@ -91,4 +97,25 @@ class RejseplanenClient {
         //TODO
     }
 
+    #splitDate(datetime) {
+        if(!datetime) return;
+        let date = [datetime.getDate(), datetime.getMonth() + 1, datetime.getFullYear() % 100].join('.');
+        let time = [datetime.getHours(), datetime.getMinutes()].join('.');
+
+        return [date, time];
+    }
+
+    joinDate(date, time) {
+        let datetime = new Date();
+        let [year, month, day] = date.split('.');
+        datetime.setFullYear(2000 + year);
+        datetime.setMonth(-1 + month);
+        datetime.setDate(day);
+
+        let [hour, minute] = time.split(':');
+        datetime.setHours(+hour);
+        datetime.setMinutes(+minute);
+
+        return datetime;
+    }
 }
