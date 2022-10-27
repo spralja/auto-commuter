@@ -10,6 +10,8 @@ let input;
 
 let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bin/rest.exe');
 
+let calendar;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -60,12 +62,12 @@ function submit_departure() {
   departure_location_y = location.y;
   departure_location_name = location.name.split(' ').join('%20');
 
-  print(departure_location_x);
-  print(departure_location_y);
+  //print(departure_location_x);
+  //print(departure_location_y);
 }
 
 function submit_destination() {
-  if(!destination_prompt.value()) throw "Destination field cannot be empty!";
+  if(!destination_prompt.value()) throw 'Destination field cannot be empty!';
 
   let destination = destination_prompt.value();
 
@@ -79,8 +81,8 @@ function submit_destination() {
   destination_location_y = location.y;
   destination_location_name = location.name.split(' ').join('%20');
 
-  print(destination_location_x);
-  print(destination_location_y);
+  //print(destination_location_x);
+  //print(destination_location_y);
 }
 
 function generate_calendar() {
@@ -88,19 +90,26 @@ function generate_calendar() {
 
   if(!destination_location_name) submit_destination();
 
-  let response = rejseplanen_client.request('trip', {
+  if(!calendar) throw 'You must upload a calendar!'
+  let arrival_trips = [];
+  let departures_trips = [];
+  let options = {
     'originCoordX': departure_location_x,
     'originCoordY': departure_location_y,
     'originCoordName': departure_location_name,
     'destCoordX': destination_location_x,
     'destCoordY': destination_location_y,
     'destCoordName': destination_location_name,
-    'date': '21.10.22',
-    'time': '12.15',
-    'searchForArrival': 1,
-  });
+  }
 
-  print(response);
+  for(const event of calendar.events) {
+    arrival_trips.push(rejseplanen_client.trip(options, event['DTSTART'], true)['TripList']['Trip'][0]);
+    departures_trips.push(rejseplanen_client.trip(options, event['DTEND'])['TripList']['Trip'][0]);
+  }
+
+  for(const trip of arrival_trips) {
+    print(Controller.tripToEvent(trip));
+  }
 }
 
 
@@ -110,12 +119,15 @@ let ical;
 function draw() {
   if (ical === undefined) return;
 
-  print(ical);
+  //print(ical);
 }
 
 function handleFile(file) {
-  let calendar = new Calendar(file.data);
+  calendar = Calendar.fromText(file.data);
   print(calendar);
+  //print(calendar);
+  //print(calendar.toICS());
+  /*
   let client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bin/rest.exe');
   let rtext = client.request('location', {input: 'Trekroner'});
   print(rtext);
@@ -125,14 +137,14 @@ function handleFile(file) {
 
   } else {
     navigator.geolocation.getCurrentPosition(success, error)
-  }
+  }*/
 }
 
 function success(position) {
-  print(position.coords.latitude);
-  print(position.coords.longitude);
+  //print(position.coords.latitude);
+  //print(position.coords.longitude);
 }
 
 function error() {
-  print('Unable to retrive your location');
+  throw 'Unable to retrieve your location!';
 }

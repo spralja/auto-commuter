@@ -1,5 +1,71 @@
 
 
+class ICalendarDate {
+    /**
+     * Constructs a ICalendarDate from a Date and a tzid string
+     * @param date
+     * @param tzid if 'UTC' then sets UTC to true and tzid to undefined, otherwise tzid
+     */
+    constructor(date, tzid) {
+        if(tzid === 'UTC') {
+            this.UTC = true;
+            tzid = undefined;
+        }
+
+        this.tzid = tzid;
+
+        this.date = date;
+    }
+
+    /**
+     * Creates an ICalendar date fomr string
+     * @param text
+     * @returns {ICalendarDate}
+     */
+    static fromText(text) {
+        text = text.split(':');
+        let UTC, tzid;
+        if(text.length === 1) {
+            [text] = text;
+            if(text[text.length - 1] === 'Z') UTC = true;
+            print(`1: ${typeof text}`);
+        }
+
+        print(text.length);
+        print(text);
+
+        if(text.length === 2) {
+            tzid = text[0].split('=')[1];
+            [, text] = text;
+            print(`2: ${typeof text}`);
+        }
+
+        print(typeof text);
+        let year = text.substring(0, 4);
+        let month = text.substring(4, 6);
+        let day = text.substring(6, 8);
+        let hour = text.substring(9, 11);
+        let minute = text.substring(11, 13);
+        let second = text.substring(13, 15);
+        let date = new Date(year, month, day, hour, minute, second);
+
+        return new ICalendarDate(date, UTC ? 'UTC' : tzid);
+    }
+
+
+    toICS(property) {
+        let ICS = [property];
+        if(this.tzid) {
+            ICS = [`${property};tzid=${this.tzid}`];
+        }
+
+        ICS.push(`${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDate()}T${this.date.getHours()}${this.date.getMinutes()}${this.date.getHours()}`);
+        ICS = [ICS.join(':'), this.UTC ? 'Z' : ''];
+        ICS = ICS.join('');
+        return ICS;
+    }
+}
+
 class Component {
     /**
      * Abstract constructor for iCalendar components
@@ -79,9 +145,9 @@ class Component {
         //modifies a dictionary, where all the values tied to some common keys (ical properties) are
         //to some more useful javascript objects (instead of strings)
         for(const [key, value] of Object.entries(this.data)) {
-            let datafy = this.#datafiable[key];
-            if(datafy) {
-                this.data[key] = new datafy(value);
+            let datafy = Component.#datafiable[key];
+            if(datafy && this.data[key].constructor !== datafy) {
+                this.data[key] = datafy.fromText(value);
             }
         }
     }
@@ -90,7 +156,7 @@ class Component {
      * Object with fields for each iCalendar data-type which requires special parsing
      * @type {object}
      */
-    #datafiable = {
+    static #datafiable = {
         'DTSTART': ICalendarDate,
         'DTEND': ICalendarDate,
         'DTSTAMP': ICalendarDate,
@@ -225,43 +291,28 @@ class Event extends Component {
 }
 
 
-class ICalendarDate {
-    constructor(data) {
-        data = data.split(':');
-        if(data.length === 1) {
-            [data] = data;
-            if(data[data.length - 1] === 'Z') this.UTC = true;
-            print(`1: ${typeof data}`);
-        }
 
-        print(data.length);
-        print(data);
 
-        if(data.length === 2) {
-            this.tzid = data[0].split('=')[1];
-            [, data] = data;
-            print(`2: ${typeof data}`);
-        }
-
-        print(typeof data);
-        let year = data.substring(0, 4);
-        let month = data.substring(4, 6);
-        let day = data.substring(6, 8);
-        let hour = data.substring(9, 11);
-        let minute = data.substring(11, 13);
-        let second = data.substring(13, 15);
-        this.date = new Date(year, month, day, hour, minute, second);
+class UIDGenerator {
+    /**
+     * Constructs an UIDGenerator with the specified domain
+     * @param domain
+     */
+    constructor(domain) {
+        this.domain = domain;
     }
 
-    toICS(property) {
-        let ICS = [property];
-        if(this.tzid) {
-            ICS = [`${property};tzid=${this.tzid}`];
+    /**
+     * Generates an UID based on a random string and the domain
+     * @returns {string} UID
+     */
+    generate() {
+        let randomString = '';
+        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-';
+        for(let i = 0; i < 64; i++) {
+            randomString += chars[Math.floor(Math.random() * chars.length)];
         }
 
-        ICS.push(`${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDate()}T${this.date.getHours()}${this.date.getMinutes()}${this.date.getHours()}`);
-        ICS = [ICS.join(':'), this.UTC ? 'Z' : ''];
-        ICS = ICS.join('');
-        return ICS;
+        return [randomString, this.domain].join('@');
     }
 }
