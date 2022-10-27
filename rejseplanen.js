@@ -105,7 +105,7 @@ class RejseplanenClient {
         return [date, time];
     }
 
-    joinDate(date, time) {
+    static joinDate(date, time) {
         let datetime = new Date();
         let [year, month, day] = date.split('.');
         datetime.setFullYear(2000 + year);
