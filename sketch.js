@@ -14,9 +14,8 @@ let calendar;
 
 function setup() {
   fetch('https://xmlopen.rejseplanen.dk/bin/rest.exe/location?input=Chri&format=json')
-      .then((response) => response.json())
-      .then((data) => {
-        print(data);
+      .then((response) => {
+        print(response);
       });
   createCanvas(windowWidth, windowHeight);
 
