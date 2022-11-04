@@ -182,6 +182,10 @@ class Component {
 
 
 class Calendar extends Component {
+    constructor(data) {
+        super(data);
+        this.events = [];
+    }
     /**
      * Constructs an icalendar object from an iCalendar text file
      * @param text
@@ -284,7 +288,7 @@ class Event extends Component {
      * @returns {string}
      */
     toICS() {
-        let ICS = ['BEGIN:VEVENT', super.toICS(), 'END:VENVET'];
+        let ICS = ['BEGIN:VEVENT', super.toICS(), 'END:VEVENT'];
 
         return ICS.join('\r\n');
     }
