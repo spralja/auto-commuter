@@ -13,6 +13,11 @@ let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bi
 let calendar;
 
 function setup() {
+  fetch('https://xmlopen.rejseplanen.dk/bin/rest.exe')
+      .then((response) => response.json())
+      .then((data) => {
+        print(data);
+      });
   createCanvas(windowWidth, windowHeight);
 
   input = createFileInput(handleFile);
@@ -107,9 +112,17 @@ function generate_calendar() {
     departures_trips.push(rejseplanen_client.trip(options, event['DTEND'])['TripList']['Trip'][0]);
   }
 
+  let new_calendar = new Calendar({'PRODID': 'spralja.test', 'VERSION': '2.0'});
+
   for(const trip of arrival_trips) {
-    print(Controller.tripToEvent(trip));
+    new_calendar.addEvent(Controller.tripToEvent(trip))
   }
+
+  for(const trip of departures_trips) {
+    new_calendar.addEvent(Controller.tripToEvent(trip));
+  }
+
+  print(new_calendar.toICS());
 }
 
 
