@@ -13,7 +13,7 @@ let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bi
 let calendar;
 
 function setup() {
-  fetch('https://xmlopen.rejseplanen.dk/bin/rest.exe')
+  fetch('https://xmlopen.rejseplanen.dk/bin/rest.exe/location?input=Chri&format=json')
       .then((response) => response.json())
       .then((data) => {
         print(data);
