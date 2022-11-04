@@ -13,10 +13,6 @@ let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bi
 let calendar;
 
 function setup() {
-  fetch('https://xmlopen.rejseplanen.dk/bin/rest.exe/location?input=Chri')
-      .then((response) => {
-        print(response);
-      });
   createCanvas(windowWidth, windowHeight);
 
   input = createFileInput(handleFile);
