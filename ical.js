@@ -55,9 +55,9 @@ class ICalendarDate {
         let year = this.date.getFullYear().toString();
         let month = (this.date.getMonth() + 1).toString().padStart(2, '0');
         let day = this.date.getDate().toString().padStart(2, '0');
-        let hour = this.date.getHours().toString();
-        let minute = this.date.getMinutes().toString();
-        let second = this.date.getSeconds().toString();
+        let hour = this.date.getHours().toString().padStart(2, '0');
+        let minute = this.date.getMinutes().toString().padStart(2, '0');
+        let second = this.date.getSeconds().toString().padStart(2, '0');
         let date = [year, month, day].join('');
         let time = [hour, minute, second].join('');
         ICS.push(`${date}T${time}`);
