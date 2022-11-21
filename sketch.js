@@ -26,9 +26,9 @@ function setup() {
   departure_prompt.size(200, departure_prompt.height);
   departure_prompt.input(suggest_departure);
 
-  departure_picker = createSelect();
-  departure_picker.position(departure_prompt.x, departure_prompt.y + 40) ;
-  departure_picker.changed(select_departure);
+  //departure_picker = createSelect();
+  //departure_picker.position(departure_prompt.x, departure_prompt.y + 40) ;
+  //departure_picker.changed(select_departure);
 
   departure_button = createButton('Submit');
   departure_button.position(departure_prompt.x + departure_prompt.width, departure_prompt.y);
@@ -43,9 +43,9 @@ function setup() {
   destination_prompt.size(200, destination_prompt.height);
   destination_prompt.input(suggest_destination);
 
-  destination_picker = createSelect();
-  destination_picker.position(destination_prompt.x,destination_prompt.y+40,);
-  destination_picker.changed(select_destination);
+  //destination_picker = createSelect();
+  //destination_picker.position(destination_prompt.x,destination_prompt.y+40,);
+  //destination_picker.changed(select_destination);
 
 
   destination_button = createButton('submit');
