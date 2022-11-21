@@ -11,7 +11,6 @@ const Controller = {
         let lastLeg = trip['Leg'][trip['Leg'].length - 1];
         let [startDate, startTime] = [firstLeg['Origin'].date, firstLeg['Origin'].time];
         let [endDate, endTime] = [lastLeg['Destination'].date, lastLeg['Destination'].time];
-
         let dtstart = RejseplanenClient.joinDate(startDate, startTime);
         dtstart = new ICalendarDate(dtstart, 'Europe/Copenhagen')
         let dtend = RejseplanenClient.joinDate(endDate, endTime);
