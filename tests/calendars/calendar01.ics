@@ -2,7 +2,7 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//study.ruc.dk//NONSGML kigkonsult.se iCalcreator 2.22//
 METHOD:PUBLISH
-X-WR-CALNAME:Subject Module Course 3: Interactive Digital Systems-28623
+X-WR-CALNAME:Subject Module Course 3: Interactive Digital Systems-28627
 X-WR-CALDESC:Kalender for Subject Module Course 3: Interactive Digital Syst
  ems
 X-WR-TIMEZONE:Europe/Copenhagen
@@ -18,219 +18,161 @@ RDATE:20231029T030000
 TZNAME:CET
 END:STANDARD
 BEGIN:DAYLIGHT
-DTSTART:20220327T020000
+DTSTART:20230326T020000
 TZOFFSETFROM:+0100
 TZOFFSETTO:+0200
-RDATE:20230326T020000,20240331T020000
+RDATE:20240331T020000
 TZNAME:CEST
 END:DAYLIGHT
 END:VTIMEZONE
 BEGIN:VEVENT
-UID:class:28623->lesson:169714@study.ruc.dk
-DTSTAMP:20221121T183824Z
+UID:class:28627->lesson:181591@study.ruc.dk
+DTSTAMP:20221121T192216Z
 DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169714
-DTSTART;TZID=Europe/Copenhagen:20221118T121500
-DTEND;TZID=Europe/Copenhagen:20221118T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169715@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169715
-DTSTART;TZID=Europe/Copenhagen:20221111T121500
-DTEND;TZID=Europe/Copenhagen:20221111T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169716@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169716
-DTSTART;TZID=Europe/Copenhagen:20221104T121500
-DTEND;TZID=Europe/Copenhagen:20221104T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169717@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 07.1-008 - Undervisningslokale (60)
- \n            \n\n            \nUnderviser(e): \, \, Mads Hobye\n         
-    \n\n            \nKurset er 'Subject Module Course 3: Interactive Digit
- al Systems'\, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/286
- 23\n            \n\n            \nSe kursusgangen i study.ruc.dk: http://s
- tudy.ruc.dk/lesson/view/169717
-DTSTART;TZID=Europe/Copenhagen:20221028T121500
-DTEND;TZID=Europe/Copenhagen:20221028T160000
-LOCATION:NONE\, 07.1-008 - Undervisningslokale (60)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169718@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169718
-DTSTART;TZID=Europe/Copenhagen:20221021T121500
-DTEND;TZID=Europe/Copenhagen:20221021T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169719@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169719
-DTSTART;TZID=Europe/Copenhagen:20221014T121500
-DTEND;TZID=Europe/Copenhagen:20221014T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169720@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169720
-DTSTART;TZID=Europe/Copenhagen:20221007T121500
-DTEND;TZID=Europe/Copenhagen:20221007T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169721@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169721
-DTSTART;TZID=Europe/Copenhagen:20220930T121500
-DTEND;TZID=Europe/Copenhagen:20220930T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169722@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169722
-DTSTART;TZID=Europe/Copenhagen:20220923T121500
-DTEND;TZID=Europe/Copenhagen:20220923T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:169723@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 10.2-049 - Teorirum (58)\n         
-    \n\n            \nUnderviser(e): \, \, Mads Hobye\n            \n\n    
-         \nKurset er 'Subject Module Course 3: Interactive Digital Systems'
- \, se kurset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n       
-      \n\n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk
- /lesson/view/169723
-DTSTART;TZID=Europe/Copenhagen:20220916T121500
-DTEND;TZID=Europe/Copenhagen:20220916T160000
-LOCATION:NONE\, 10.2-049 - Teorirum (58)
-SUMMARY:SMC3 Interactive Digital Systems (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:171019@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, NONE\n            \n\n            
- \nUnderviser(e): \, \, \n            \n\n            \nKurset er 'Subject 
- Module Course 3: Interactive Digital Systems'\, se kurset i study.ruc.dk: 
- http://study.ruc.dk/class/view/28623\n            \n\n            \nSe kur
- susgangen i study.ruc.dk: http://study.ruc.dk/lesson/view/171019
-DTSTART;TZID=Europe/Copenhagen:20221125T100000
-DTEND;TZID=Europe/Copenhagen:20221125T100000
-LOCATION:NONE\, NONE
-SUMMARY:SMC3 Interactive Digital Systems - Hand-in (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:171020@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 08.2-023 - Mødelokale (12)\n       
-      \n\n            \nUnderviser(e): \, \, \n            \n\n            
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
  \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
- rset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n            \n
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
  \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
- /view/171020
-DTSTART;TZID=Europe/Copenhagen:20230110T081500
-DTEND;TZID=Europe/Copenhagen:20230113T180000
-LOCATION:NONE\, 08.2-023 - Mødelokale (12)
-SUMMARY:SMC3 Interactive Digital Systems - Oral examination (DAT)
+ /view/181591
+DTSTART;TZID=Europe/Copenhagen:20230412T081500
+DTEND;TZID=Europe/Copenhagen:20230412T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
 END:VEVENT
 BEGIN:VEVENT
-UID:class:28623->lesson:171021@study.ruc.dk
-DTSTAMP:20221121T183824Z
+UID:class:28627->lesson:181592@study.ruc.dk
+DTSTAMP:20221121T192216Z
 DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, NONE\n            \n\n            
- \nUnderviser(e): \, \, \n            \n\n            \nKurset er 'Subject 
- Module Course 3: Interactive Digital Systems'\, se kurset i study.ruc.dk: 
- http://study.ruc.dk/class/view/28623\n            \n\n            \nSe kur
- susgangen i study.ruc.dk: http://study.ruc.dk/lesson/view/171021
-DTSTART;TZID=Europe/Copenhagen:20230214T100000
-DTEND;TZID=Europe/Copenhagen:20230214T100000
-LOCATION:NONE\, NONE
-SUMMARY:SMC3 Interactive Digital Systems - Reexam - Hand-in (DAT)
-END:VEVENT
-BEGIN:VEVENT
-UID:class:28623->lesson:171022@study.ruc.dk
-DTSTAMP:20221121T183824Z
-DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
- ms\n            \nLokation(er): NONE\, 03.1-E09 - Mødelokale (6)\n        
-     \n\n            \nUnderviser(e): \, \, \n            \n\n            
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
  \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
- rset i study.ruc.dk: http://study.ruc.dk/class/view/28623\n            \n
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
  \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
- /view/171022
-DTSTART;TZID=Europe/Copenhagen:20230220T081500
-DTEND;TZID=Europe/Copenhagen:20230220T180000
-LOCATION:NONE\, 03.1-E09 - Mødelokale (6)
-SUMMARY:SMC3 Interactive Digital Systems - Oral reexamination (DAT)
+ /view/181592
+DTSTART;TZID=Europe/Copenhagen:20230405T081500
+DTEND;TZID=Europe/Copenhagen:20230405T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181593@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181593
+DTSTART;TZID=Europe/Copenhagen:20230329T081500
+DTEND;TZID=Europe/Copenhagen:20230329T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181594@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181594
+DTSTART;TZID=Europe/Copenhagen:20230322T081500
+DTEND;TZID=Europe/Copenhagen:20230322T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181596@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181596
+DTSTART;TZID=Europe/Copenhagen:20230315T081500
+DTEND;TZID=Europe/Copenhagen:20230315T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181597@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181597
+DTSTART;TZID=Europe/Copenhagen:20230308T081500
+DTEND;TZID=Europe/Copenhagen:20230308T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181598@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181598
+DTSTART;TZID=Europe/Copenhagen:20230301T081500
+DTEND;TZID=Europe/Copenhagen:20230301T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181599@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181599
+DTSTART;TZID=Europe/Copenhagen:20230222T081500
+DTEND;TZID=Europe/Copenhagen:20230222T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181600@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181600
+DTSTART;TZID=Europe/Copenhagen:20230215T081500
+DTEND;TZID=Europe/Copenhagen:20230215T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
+END:VEVENT
+BEGIN:VEVENT
+UID:class:28627->lesson:181601@study.ruc.dk
+DTSTAMP:20221121T192216Z
+DESCRIPTION:Kalender for Subject Module Course 3: Interactive Digital Syste
+ ms\n            \nLokation(er): 10.2-049 - Teorirum (58)\n            \n\n
+             \nUnderviser(e): Niels Jørgensen\n            \n\n            
+ \nKurset er 'Subject Module Course 3: Interactive Digital Systems'\, se ku
+ rset i study.ruc.dk: http://study.ruc.dk/class/view/28627\n            \n
+ \n            \nSe kursusgangen i study.ruc.dk: http://study.ruc.dk/lesson
+ /view/181601
+DTSTART;TZID=Europe/Copenhagen:20230208T081500
+DTEND;TZID=Europe/Copenhagen:20230208T120000
+LOCATION:10.2-049 - Teorirum (58)
+SUMMARY:FMK3 Interactive Digital Systems (DAT)
 END:VEVENT
 END:VCALENDAR
