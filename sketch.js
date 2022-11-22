@@ -24,7 +24,7 @@ function setup() {
   departure_prompt = createInput();
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
-Fix  //departure_prompt.input(suggest_departure);
+  //departure_prompt.input(suggest_departure);
 
   //departure_picker = createSelect();
   //departure_picker.position(departure_prompt.x, departure_prompt.y + 40) ;
