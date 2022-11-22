@@ -64,7 +64,7 @@ const Controller = {
             description.push(this.legToDescription(leg));
 
         // returns the final formatted string
-        return `Details:\r\n ${description.join('\r\n \r\n ')}\r\n Duration: ${this.tripToDuration(trip)}`;
+        return `Details:<br> ${description.join('<br> <br> ')}<br> Duration: ${this.tripToDuration(trip)}`;
     },
 
     /**
@@ -99,6 +99,6 @@ const Controller = {
             ` ${leg.type}`,
             `Departure ${leg['Origin'].time} ${leg['Origin'].name}`,
             `Arrival ${leg['Destination'].time} ${leg['Destination'].name}`,
-        ].join('\r\n ');
+        ].join('<br> ');
     }
 }
