@@ -29,8 +29,6 @@ function setup() {
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
 
- // departure_picker.changed(select_departure);
-
   departure_button = createButton('Submit');
   departure_button.position(departure_prompt.x + departure_prompt.width, departure_prompt.y);
   departure_button.size(departure_button.width, departure_prompt.height);
@@ -42,11 +40,11 @@ function setup() {
   destination_prompt = createInput();
   destination_prompt.position(destination_text.x, destination_text.y + 40)
   destination_prompt.size(200, destination_prompt.height);
-  destination_prompt.input(suggest_destination);
+  //destination_prompt.input(suggest_destination);
 
-  destination_picker = createSelect();
-  destination_picker.position(destination_prompt.x,destination_prompt.y+40,);
-  destination_picker.changed(select_destination);
+  //destination_picker = createSelect();
+  //destination_picker.position(destination_prompt.x,destination_prompt.y+40,);
+  //destination_picker.changed(select_destination);
 
 
   destination_button = createButton('submit');
@@ -194,8 +192,26 @@ function generate_calendar() {
   }
 
   for(const event of calendar.events) {
-    arrival_trips.push(rejseplanen_client.trip(options, event['DTSTART'], true)['TripList']['Trip'][0]);
-    departures_trips.push(rejseplanen_client.trip(options, event['DTEND'])['TripList']['Trip'][0]);
+    let start_time, end_time;
+    // Converting date from utc to Europe/Copenhagen, it assumes that the calendar is in Europe/Copenhagen
+    if(event.data['DTSTART'].UTC) {
+      start_time = new Date();
+      start_time.setTime(event.data['DTSTART'].date.getTime() + 60*60*1000);
+      end_time = new Date();
+      end_time.setTime(event.data['DTEND'].date.getTime() + 60*60*1000);
+    }
+     else {
+      start_time = event.data['DTSTART'].date;
+      end_time = event.data['DTEND'].date;
+     }
+
+
+    let arrival_request = rejseplanen_client.trip(options, start_time, true);
+    let departure_request = rejseplanen_client.trip(options, end_time);
+
+
+    arrival_trips.push(arrival_request['Trip'][0]);
+    departures_trips.push(departure_request['Trip'][0]);
   }
 
   let new_calendar = new Calendar({'PRODID': 'spralja.test', 'VERSION': '2.0'});
@@ -208,7 +224,9 @@ function generate_calendar() {
     new_calendar.addEvent(Controller.tripToEvent(trip));
   }
 
-  print(new_calendar.toICS());
+  let writer = createWriter('commute-calendar.ics');
+  writer.write([new_calendar.toICS()]);
+  writer.close();
 }
 
 

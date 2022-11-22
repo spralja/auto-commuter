@@ -28,21 +28,15 @@ class ICalendarDate {
         if(text.length === 1) {
             [text] = text;
             if(text[text.length - 1] === 'Z') UTC = true;
-            print(`1: ${typeof text}`);
         }
-
-        print(text.length);
-        print(text);
 
         if(text.length === 2) {
             tzid = text[0].split('=')[1];
             [, text] = text;
-            print(`2: ${typeof text}`);
         }
 
-        print(typeof text);
         let year = text.substring(0, 4);
-        let month = text.substring(4, 6);
+        let month = +text.substring(4, 6) - 1;
         let day = text.substring(6, 8);
         let hour = text.substring(9, 11);
         let minute = text.substring(11, 13);
@@ -58,8 +52,15 @@ class ICalendarDate {
         if(this.tzid) {
             ICS = [`${property};tzid=${this.tzid}`];
         }
-
-        ICS.push(`${this.date.getFullYear()}${this.date.getMonth()}${this.date.getDate()}T${this.date.getHours()}${this.date.getMinutes()}${this.date.getHours()}`);
+        let year = this.date.getFullYear().toString();
+        let month = (this.date.getMonth() + 1).toString().padStart(2, '0');
+        let day = this.date.getDate().toString().padStart(2, '0');
+        let hour = this.date.getHours().toString().padStart(2, '0');
+        let minute = this.date.getMinutes().toString().padStart(2, '0');
+        let second = this.date.getSeconds().toString().padStart(2, '0');
+        let date = [year, month, day].join('');
+        let time = [hour, minute, second].join('');
+        ICS.push(`${date}T${time}`);
         ICS = [ICS.join(':'), this.UTC ? 'Z' : ''];
         ICS = ICS.join('');
         return ICS;
@@ -202,12 +203,11 @@ class Calendar extends Component {
         if(lines[lines.length - 1] !== 'END:VCALENDAR')
             throw 'VCALENDAR not terminated!';
 
-        lines = lines.slice(1, -2);
+        lines = lines.slice(1, -1);
 
         let is_event = false;
         let event_lines = ['BEGIN:VEVENT'];
         for(const line of lines) {
-            print(line);
             if(line === 'BEGIN:VEVENT') {
                 is_event = true;
                 continue;
