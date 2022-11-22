@@ -55,7 +55,7 @@ const Controller = {
         return [
             ` ${leg.type}`,
             `Departure ${leg['Origin'].time} ${leg['Origin'].name}`,
-            `Arrival ${leg['Origin'].time} ${leg['Origin'].name}`,
+            `Arrival ${leg['Destination'].time} ${leg['Destination'].name}`,
         ].join('\r\n ');
     }
 }
