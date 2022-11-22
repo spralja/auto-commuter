@@ -28,12 +28,17 @@ class RejseplanenClient {
     }
 
     trip(options, datetime, arrival) {
-        let service = 'trip'
-        let splitDate = this.#splitDate(datetime);
-        if(splitDate) [options['date'], options['time']] = splitDate;
+        let service = 'trip';
+        [options['date'], options['time']] = this.#splitDate(datetime);
         options['searchForArrival'] = arrival ? 1 : 0;
 
-        return this.request(service, options);
+        let response = this.request(service, options)['TripList'];
+
+        if(response['error'] !== undefined) {
+            throw response['error'];
+        }
+
+        return response;
 
         /*
          required:
@@ -98,23 +103,35 @@ class RejseplanenClient {
     }
 
     #splitDate(datetime) {
-        if(!datetime) return;
-        let date = [datetime.getDate(), datetime.getMonth() + 1, datetime.getFullYear() % 100].join('.');
-        let time = [datetime.getHours(), datetime.getMinutes()].join('.');
+        let day = datetime.getDate().toString().padStart(2, '0');
+        let month = (datetime.getMonth() + 1).toString().padStart(2, '0');
+        let year = (datetime.getFullYear() % 100).toString().padStart(2, '0');
+        let hour = datetime.getHours().toString().padStart(2, '0');
+        let minute = datetime.getMinutes().toString().padStart(2, '0');
+        let date = [day, month, year].join('.');
+        let time = [hour, minute].join('.');
 
         return [date, time];
     }
 
     static joinDate(date, time) {
         let datetime = new Date();
-        let [year, month, day] = date.split('.');
-        datetime.setFullYear(2000 + year);
-        datetime.setMonth(-1 + month);
+
+        let [day, month, year] = date.split('.');
+        year = +year + 2000;
+        month = +month - 1;
+        day = +day;
+
+        datetime.setFullYear(year);
+        datetime.setMonth(month);
         datetime.setDate(day);
 
         let [hour, minute] = time.split(':');
-        datetime.setHours(+hour);
-        datetime.setMinutes(+minute);
+        hour = +hour
+        minute = +minute
+
+        datetime.setHours(hour);
+        datetime.setMinutes(minute);
 
         return datetime;
     }
