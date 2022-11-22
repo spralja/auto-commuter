@@ -13,8 +13,7 @@ let rejseplanen_client = new RejseplanenClient('http://xmlopen.rejseplanen.dk/bi
 let calendar;
 
 var lastRequestTime = 0;
-var timerActive = false;
-var lastRequestedInput = ""
+var lastRequestedInput = "";
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -25,11 +24,10 @@ function setup() {
   departure_text = createElement('h4', 'Departure:')
   departure_text.position(10, 100);
 
-  departure_prompt = createInput().attribute('placeholder', 'hint');
+
+  departure_prompt = createInput().attribute('placeholder', 'ex. Roskilde St.');
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
-  departure_prompt.input(suggest_departure);
-
 
  // departure_picker.changed(select_departure);
 
@@ -63,28 +61,39 @@ function setup() {
 
 }
 
+function draw() {
+
+  departure_prompt.input(time_millis);
+  suggest_departure();
+  print(lastRequestTime);
+
+  if (ical === undefined) return;
+
+  //print(ical);
+}
+
+function time_millis(){
+  lastRequestTime = millis();
+}
+
 function suggest_departure() {
   let initialInput = departure_prompt.value();
-  if (millis() - lastRequestTime > 3000) {
-
+  if (millis() - lastRequestTime > 2000 && initialInput != lastRequestedInput) {
     if (lastRequestedInput != "") {
       departure_picker.remove();
     }
     lastRequestedInput = departure_prompt.value;
-    if (initialInput != lastRequestedInput) {
+    lastRequestedInput = initialInput;
 
-      print(lastRequestTime)
-      print("Initial:" + initialInput)
-      print("Last requaeted: " + lastRequestedInput)
-      lastRequestTime = millis()
-      lastRequestedInput = initialInput
-
+    if (initialInput == 0) {
+      departure_picker.remove();
+    } else {
       let response = rejseplanen_client.location(initialInput);
-      let location_stops = response['LocationList']['StopLocation']
-      let location_coors = response['LocationList']['CoordLocation'];
+      let location_stops = response["LocationList"]["StopLocation"];
+      let location_coors = response["LocationList"]["CoordLocation"];
       let location = location_stops.concat(location_coors);
-      // print(location_coors)
-      departure_picker = createSelect()
+
+      departure_picker = createSelect();
       departure_picker.position(departure_prompt.x, departure_prompt.y + 25);
       var i = 0;
       while (i < 5) {
@@ -96,6 +105,7 @@ function suggest_departure() {
 }
 
 
+
 //function to display a selected location from the dropdown in the prompt
 function select_departure(){
   let selected = departure_picker.selected();
@@ -103,8 +113,6 @@ function select_departure(){
 }
 
 function suggest_destination() {
-
-
   let destination = destination_prompt.value();
   let response = rejseplanen_client.location(destination);
   let location_stops = response['LocationList']['StopLocation']
@@ -208,10 +216,16 @@ function generate_calendar() {
 let ical;
 
 function draw() {
+
+  departure_prompt.input(time_millis);
+  suggest_departure();
+  print(lastRequestTime);
+
   if (ical === undefined) return;
 
   //print(ical);
 }
+
 
 function handleFile(file) {
   calendar = Calendar.fromText(file.data);
@@ -239,3 +253,4 @@ function success(position) {
 function error() {
   throw 'Unable to retrieve your location!';
 }
+
