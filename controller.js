@@ -64,7 +64,28 @@ const Controller = {
             description.push(this.legToDescription(leg));
 
         // returns the final formatted string
-        return `Details:\r\n ${description.join('\r\n \r\n ')}\r\n Duration: ????`;
+        return `Details:\r\n ${description.join('\r\n \r\n ')}\r\n Duration: ${this.tripToDuration(trip)}`;
+    },
+
+    /**
+     * Returns the duration string of the trip
+     * @param trip
+     * @return {string}
+     */
+    tripToDuration(trip) {
+        let first_leg = trip['Leg'][0];
+        let last_leg = trip['Leg'][trip['Leg'].length - 1];
+
+        let start_time = RejseplanenClient.joinDate(first_leg['Origin'].date, first_leg['Origin'].time);
+        let end_time = RejseplanenClient.joinDate(last_leg['Destination'].date, last_leg['Destination'].time);
+
+        let duration = (end_time.getTime() - start_time.getTime())/(60*1000);
+
+        let minute = (duration % 60).toString().padStart(2, '0');
+        let hour = ((duration - (duration % 60))/60).toString();
+
+        // H:MM
+        return `${hour}:${minute}`;
     },
 
     /**
