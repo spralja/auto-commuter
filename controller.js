@@ -21,12 +21,14 @@ const Controller = {
         let [endDate, endTime] = [lastLeg['Destination'].date, lastLeg['Destination'].time];
         // convert the rejseplanen date, time to a js Date object
         let dtstart = RejseplanenClient.joinDate(startDate, startTime);
+
         // convert the js Date object to an ICalendarDate object
-        dtstart = new ICalendarDate(dtstart, 'Europe/Copenhagen')
+        dtstart = new ICalendarDate(dtstart)
+        
         // convert the rejseplanen date, time to a js Date object
         let dtend = RejseplanenClient.joinDate(endDate, endTime);
         // convert the js Date object to an ICalendarDate object
-        dtend = new ICalendarDate(dtend, 'Europe/Copenhagen');
+        dtend = new ICalendarDate(dtend);
 
         // Create and UUID generator with a given domain, to generate Universal Unique Identifiers
         let UID_GENERATOR = new UIDGenerator('spralja.test');

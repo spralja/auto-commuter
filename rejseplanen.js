@@ -45,12 +45,23 @@ class RejseplanenClient {
         return this.request(service, {'input': input});
     }
 
+    /**
+     * :)
+     * @param options options
+     * @param datetime in UTC
+     * @param arrival true or false
+     * @returns {*}
+     */
     trip(options, datetime, arrival) {
         // Defines the service of the request
         let service = 'trip';
+        
+        let UTCTime = new Date();
+        UTCTime.setTime(datetime.getTime() - datetime.getTimezoneOffset()*60*1000);
         // unpacks the converted datetime, into the options object (the datetime is converted to
         // the representation expected by the Rejseplanen API)
-        [options['date'], options['time']] = this.#splitDate(datetime);
+        [options['date'], options['time']] = this.#splitDate(UTCTime);
+        
         // Sets the 'searchForArrival' to the appropriate value
         // By default Rejseplanen responds with a list of trips that start after the selected datetime
         // by setting searchForArrival to 1, instead Rejseplanen will send trips that end before the
