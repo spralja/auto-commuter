@@ -24,7 +24,7 @@ function setup() {
   departure_prompt = createInput();
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
-Fix  //departure_prompt.input(suggest_departure);
+  //departure_prompt.input(suggest_departure);
 
   //departure_picker = createSelect();
   //departure_picker.position(departure_prompt.x, departure_prompt.y + 40) ;
@@ -161,23 +161,11 @@ function generate_calendar() {
   }
 
   for(const event of calendar.events) {
-    let start_time, end_time;
-    // Converting date from utc to Europe/Copenhagen, it assumes that the calendar is in Europe/Copenhagen
-    if(event.data['DTSTART'].UTC) {
-      start_time = new Date();
-      start_time.setTime(event.data['DTSTART'].date.getTime() + 60*60*1000);
-      end_time = new Date();
-      end_time.setTime(event.data['DTEND'].date.getTime() + 60*60*1000);
-    }
-     else {
-      start_time = event.data['DTSTART'].date;
-      end_time = event.data['DTEND'].date;
-     }
-
+    let start_time = event.data['DTSTART'].date;
+    let end_time = event.data['DTEND'].date;
 
     let arrival_request = rejseplanen_client.trip(options, start_time, true);
     let departure_request = rejseplanen_client.trip(options, end_time);
-
 
     arrival_trips.push(arrival_request['Trip'][0]);
     departures_trips.push(departure_request['Trip'][0]);

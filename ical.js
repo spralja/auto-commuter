@@ -3,18 +3,17 @@
 class ICalendarDate {
     /**
      * Constructs a ICalendarDate from a Date and a tzid string
+     * If timezone is provided it is assumed to be the same as the user
+     * date is always stored as UTC
      * @param date
-     * @param tzid if 'UTC' then sets UTC to true and tzid to undefined, otherwise tzid
+     * @param UTC true if UTC
      */
-    constructor(date, tzid) {
-        if(tzid === 'UTC') {
-            this.UTC = true;
-            tzid = undefined;
+    constructor(date, UTC) {
+        if(UTC) this.date = date
+        else {
+            this.date = new Date();
+            this.date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
         }
-
-        this.tzid = tzid;
-
-        this.date = date;
     }
 
     /**
@@ -24,15 +23,13 @@ class ICalendarDate {
      */
     static fromText(text) {
         text = text.split(':');
-        let UTC, tzid;
-        if(text.length === 1) {
-            [text] = text;
-            if(text[text.length - 1] === 'Z') UTC = true;
-        }
 
-        if(text.length === 2) {
-            tzid = text[0].split('=')[1];
-            [, text] = text;
+        let UTC = false;
+
+        if(text.length === 2) [, text] = text;
+        else {
+            [text] = text;
+            UTC = true;
         }
 
         let year = text.substring(0, 4);
@@ -43,15 +40,15 @@ class ICalendarDate {
         let second = text.substring(13, 15);
         let date = new Date(year, month, day, hour, minute, second);
 
-        return new ICalendarDate(date, UTC ? 'UTC' : tzid);
+        return new ICalendarDate(date, UTC);
     }
 
-
+    /**
+     * Converts date to ICS
+     * @param property
+     * @returns {string}
+     */
     toICS(property) {
-        let ICS = [property];
-        if(this.tzid) {
-            ICS = [`${property};tzid=${this.tzid}`];
-        }
         let year = this.date.getFullYear().toString();
         let month = (this.date.getMonth() + 1).toString().padStart(2, '0');
         let day = this.date.getDate().toString().padStart(2, '0');
@@ -60,10 +57,8 @@ class ICalendarDate {
         let second = this.date.getSeconds().toString().padStart(2, '0');
         let date = [year, month, day].join('');
         let time = [hour, minute, second].join('');
-        ICS.push(`${date}T${time}`);
-        ICS = [ICS.join(':'), this.UTC ? 'Z' : ''];
-        ICS = ICS.join('');
-        return ICS;
+
+        return `${property}:${date}T${time}Z`;
     }
 }
 

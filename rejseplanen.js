@@ -27,9 +27,19 @@ class RejseplanenClient {
         return this.request(service, {'input': input});
     }
 
+    /**
+     * :)
+     * @param options options
+     * @param datetime in UTC
+     * @param arrival true or false
+     * @returns {*}
+     */
     trip(options, datetime, arrival) {
         let service = 'trip';
-        [options['date'], options['time']] = this.#splitDate(datetime);
+        let UTCTime = new Date();
+        UTCTime.setTime(datetime.getTime() - datetime.getTimezoneOffset()*60*1000);
+
+        [options['date'], options['time']] = this.#splitDate(UTCTime);
         options['searchForArrival'] = arrival ? 1 : 0;
 
         let response = this.request(service, options)['TripList'];

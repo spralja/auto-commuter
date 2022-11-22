@@ -12,9 +12,9 @@ const Controller = {
         let [startDate, startTime] = [firstLeg['Origin'].date, firstLeg['Origin'].time];
         let [endDate, endTime] = [lastLeg['Destination'].date, lastLeg['Destination'].time];
         let dtstart = RejseplanenClient.joinDate(startDate, startTime);
-        dtstart = new ICalendarDate(dtstart, 'Europe/Copenhagen')
+        dtstart = new ICalendarDate(dtstart)
         let dtend = RejseplanenClient.joinDate(endDate, endTime);
-        dtend = new ICalendarDate(dtend, 'Europe/Copenhagen');
+        dtend = new ICalendarDate(dtend);
 
         let UID_GENERATOR = new UIDGenerator('spralja.test');
         let uid = UID_GENERATOR.generate();
