@@ -43,7 +43,7 @@ const Controller = {
         for(const leg of trip['Leg'])
             description.push(this.legToDescription(leg));
 
-        return `Details:\r\n ${description.join('\r\n \r\n ')}\r\n Duration: ????`;
+        return `Details:<br> ${description.join('<br> <br> ')}<br> Duration: ????`;
     },
 
     /**
@@ -56,6 +56,6 @@ const Controller = {
             ` ${leg.type}`,
             `Departure ${leg['Origin'].time} ${leg['Origin'].name}`,
             `Arrival ${leg['Origin'].time} ${leg['Origin'].name}`,
-        ].join('\r\n ');
+        ].join('<br> ');
     }
 }
