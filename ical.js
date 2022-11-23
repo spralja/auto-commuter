@@ -17,9 +17,11 @@ class ICalendarDate {
      * @param UTC true if UTC
      */
     constructor(date, UTC) {
+        // if the time is in UTC, nothing needs to change
         if(UTC) this.date = date
         else {
             this.date = new Date();
+            // convert the time the UTC from the users time zone
             this.date.setTime(date.getTime() + date.getTimezoneOffset()*60*1000);
         }
     }
@@ -30,24 +32,40 @@ class ICalendarDate {
      * @returns {ICalendarDate}
      */
     static fromText(text) {
+        // split the text by a colon (there might not be one)
         text = text.split(':');
 
+        // by default UTC is set to false
         let UTC = false;
 
+        // if the length of the text is 2, this means that there is a colon
+        // the first element of the array will be the time zone (the time zone is assumed to be the
+        // user's) if that is the case the timezone is dropped, and text is the date time string
         if(text.length === 2) [, text] = text;
         else {
+            // if the length of the date time is 1 this means, that no time zone information is
+            // available and UTC is assumed
             [text] = text;
             UTC = true;
         }
 
+        // get the year from the date time string
         let year = text.substring(0, 4);
+        // get the month from the date time string (-1 because js months are 0-indexed)
         let month = +text.substring(4, 6) - 1;
+        // get the day of the month from the date string
         let day = text.substring(6, 8);
+        // get the hour from the date string
         let hour = text.substring(9, 11);
+        // get the minute from the date string
         let minute = text.substring(11, 13);
+        // get the second from the date string
         let second = text.substring(13, 15);
+        // create a new js Date object with the data
         let date = new Date(year, month, day, hour, minute, second);
 
+        // returns a new ICalendarDate, where date is the parsed date and time, and UTC is true
+        // if the timezone is UTC, or false otherwise
         return new ICalendarDate(date, UTC);
     }
 
@@ -57,16 +75,26 @@ class ICalendarDate {
      * @returns {string}
      */
     toICS(property) {
+        // get the year from the date
         let year = this.date.getFullYear().toString();
+        // get the month from the date, must have leading 0
         let month = (this.date.getMonth() + 1).toString().padStart(2, '0');
+        // get the day of the month from the date, must have leading 0
         let day = this.date.getDate().toString().padStart(2, '0');
+        // get the hour from the date, must have leading 0
         let hour = this.date.getHours().toString().padStart(2, '0');
+        // get the minute from the date, must have leading 0
         let minute = this.date.getMinutes().toString().padStart(2, '0');
+        // get the second from the date, must have leading 0
         let second = this.date.getSeconds().toString().padStart(2, '0');
+        // join the year, month, day into a string (YYYYMMDD)
         let date = [year, month, day].join('');
+        // join the hour, minute, second into a string (hhmmss)
         let time = [hour, minute, second].join('');
 
-        return `${property}:${date}T${time}Z`;
+        // return the final formatted string representation of the date (PROPERTY:YYYYMMDDThhmmssZ
+        return `${property}:${date}T${time}Z`; // the following 'Z' is there to signify UTC time
+        // because ICalendarDate are always in UTC
     }
 }
 
