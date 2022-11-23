@@ -145,7 +145,7 @@ class RejseplanenClient {
     }
 
     /**
-     * Converts an js Date object into the representation the Rejseplanen API expects
+     * Converts a js Date object into the representation the Rejseplanen API expects
      * @param datetime
      * @returns {string[]}
      */
@@ -199,7 +199,7 @@ class RejseplanenClient {
 
         // Split the time string by ':'
         let [hour, minute] = time.split(':');
-        //convert hour and minute to ints
+        //convert hour and minute to int
         hour = +hour
         minute = +minute
 

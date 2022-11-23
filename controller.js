@@ -73,17 +73,20 @@ const Controller = {
      * @return {string}
      */
     tripToDuration(trip) {
+        // the First leg of the trip
         let first_leg = trip['Leg'][0];
+        // the Last leg of the trip
         let last_leg = trip['Leg'][trip['Leg'].length - 1];
-
+        // the start time of the trip
         let start_time = RejseplanenClient.joinDate(first_leg['Origin'].date, first_leg['Origin'].time);
+        // the end time of the trip
         let end_time = RejseplanenClient.joinDate(last_leg['Destination'].date, last_leg['Destination'].time);
-
+        // the duration of the trip
         let duration = (end_time.getTime() - start_time.getTime())/(60*1000);
-
-        let minute = (duration % 60).toString().padStart(2, '0');
+        // the hour of the duration
         let hour = ((duration - (duration % 60))/60).toString();
-
+        // the minute of the duration
+        let minute = (duration % 60).toString().padStart(2, '0');
         // H:MM
         return `${hour}:${minute}`;
     },
