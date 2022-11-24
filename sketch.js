@@ -60,25 +60,28 @@ function draw() {
  departure_prompt.input(input_departure);
  suggest_departure();
 
-
  destination_prompt.input(input_destination);
  suggest_destination();
 
   if (ical === undefined) return;
 
-  //print(ical);
 }
 
+//This function is called every time when input in departure prompt changes. It resets time of a last requested time
+// and makes boolean picked_departure = false, meaning that departure is not yet selected.
 function input_departure(){
   lastRequestTime_departure = millis();
   picked_departure = false;
 }
 
+//Duplicate of the input_departure(), just for destination
 function input_destination(){
   lastRequestTime_destination = millis();
   picked_destination = false;
 }
 
+// In this function a request to Rejseplanen is sent 1 sec after last change in departure prompt
+// and each time dropdown departure_picker with 5 matching results is generated
 function suggest_departure() {
   let initialInput = departure_prompt.value();
   if (millis() - lastRequestTime_departure > 1000 && initialInput != lastRequestedInput_departure && (picked_departure==false)) {
@@ -93,8 +96,6 @@ function suggest_departure() {
       departure_picker.remove();
     } else {
       let response = rejseplanen_client.location(initialInput);
-      //let location_stops = response["LocationList"]["StopLocation"];
-      //let location_coors = response["LocationList"]["CoordLocation"];
       let location = response["LocationList"]["CoordLocation"];
 
       departure_picker = createSelect();
@@ -110,11 +111,7 @@ function suggest_departure() {
         return;
       }
       if(! Array.isArray(location)) location = [location];
-
-
       while (i < 5) {
-
-
         if(i >= location.length){
           break
         }
@@ -122,17 +119,21 @@ function suggest_departure() {
         pickerOptionsDeparture.push(new pickerOptionDeparture(location[i].name, location[i].x, location[i].y));
         i++;
       }
+      //when a selected option changes in departure picker, selected_departure() is called
       departure_picker.changed(select_departure);
     }
   }
 }
 
-//function to display a selected location from the dropdown in the prompt
+
+//function to display a selected location from the dropdown in the prompt and declare x and y of the selected address.
+//when option is selected, the dropdown departure_picker is removed.
 function select_departure(){
   let selected = departure_picker.selected();
   let chosenOption = getPickerOptionDeparture(selected);
   departure_location_x = chosenOption.x;
   departure_location_y = chosenOption.y;
+  //replacing spaces with %20, because url can't contain space and request is not going to be sent (in generate_calendar) fxn
   departure_location_name = chosenOption.name.split(' ').join('%20');
 
   departure_prompt.value(selected);
@@ -145,18 +146,18 @@ function select_departure(){
   departure_picker.remove();
 }
 
+//function to get information of the selected option (name, x and y). Called on line 133.
 function getPickerOptionDeparture(selected) {
-  //if (pickerOptionsDeparture != []) {
     var i = 0
     while (i < 5) {
       if (selected == pickerOptionsDeparture[i].name) {
         return (pickerOptionsDeparture[i])
       }
       i++
-   // }
   }
 }
 
+//this class with a constructor is used to store x and y of addresses in the dropdown departure_picker (line 119)
 class pickerOptionDeparture {
   constructor(name, x, y) {
     this.name = name;
@@ -165,6 +166,7 @@ class pickerOptionDeparture {
   }
 }
 
+//following functions are duplicates for destination (of departure)
 
 function suggest_destination() {
   let initialInput = destination_prompt.value();
@@ -250,7 +252,7 @@ class pickerOptionDestination {
 
 
 
-
+//generation of the calendar
 function generate_calendar() {
   if(!departure_location_name) {
     alert('You must choose a departure (refresh page)')
