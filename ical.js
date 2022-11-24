@@ -283,14 +283,18 @@ class Calendar extends Component {
         if(lines[0] !== 'BEGIN:VCALENDAR')
             // alert the user to this requirement (the .ics file might be of the incorrect format
             // or the wrong file was provided
+        {
             alert('Incorrect Format (refresh page)')
             throw 'Not a VCALENDAR!';
+        }
 
         // Icalendar Calendar objects must be terminated
         if(lines[lines.length - 1] !== 'END:VCALENDAR')
             // alert the user
+        {
             alert('Incorrect Format (refresh page)')
             throw 'VCALENDAR not terminated!';
+        }
 
         // removes the 'BEGIN:VCALENDAR', and 'END:VCALENDAR' from the lines, because they aren't data
         lines = lines.slice(1, -1);
@@ -388,14 +392,19 @@ class Event extends Component {
         // all events must begin with 'BEGIN:VEVENT'
         if(lines[0] !== 'BEGIN:VEVENT')
             // alerts the user
+        {
             alert('Incorrect format (refresh page)')
             throw 'Not a VEVENT!';
+        }
 
         // all events must be terminated
         if(lines[lines.length - 1] !== 'END:VEVENT')
             // alerts the user
+        {
             alert('Incorrect format (refresh page)')
             throw 'VEVENT not terminated!';
+        }
+
 
         // removes 'BEGIN:VEVENT' and 'END:VEVENT' from the array, because they are not data
         lines = lines.slice(1, -1);
