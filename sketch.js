@@ -37,7 +37,7 @@ function setup() {
   departure_text = createElement('h4', 'Departure:')
   departure_text.position(10, 100);
 
-  departure_prompt = createInput().attribute('placeholder','ex.Fredriksgade.');
+  departure_prompt = createInput().attribute('placeholder','ex. Frederiksgade');
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
 
