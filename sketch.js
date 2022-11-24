@@ -23,6 +23,11 @@ var lastRequestedInput_destination = "";
 var picked_departure = false;
 var picked_destination = false;
 
+var pickerOptionsDeparture = []
+var pickerOptionsDestination = []
+
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -32,15 +37,10 @@ function setup() {
   departure_text = createElement('h4', 'Departure:')
   departure_text.position(10, 100);
 
-  textStyle(ITALIC);
+
   departure_prompt = createInput().attribute('placeholder','ex. Roskilde St.');
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
-
-  departure_button = createButton('Submit');
-  departure_button.position(departure_prompt.x + departure_prompt.width, departure_prompt.y);
-  departure_button.size(departure_button.width, departure_prompt.height);
-  departure_button.mousePressed(submit_departure);
 
   destination_text = createElement('h4', 'Destination:');
   destination_text.position(departure_text.x + 600, 100);
@@ -48,12 +48,6 @@ function setup() {
   destination_prompt = createInput().attribute('placeholder','ex. RUC');
   destination_prompt.position(destination_text.x, destination_text.y + 40)
   destination_prompt.size(200, destination_prompt.height);
-
-
-  destination_button = createButton('submit');
-  destination_button.position(destination_prompt.x + destination_prompt.width, destination_prompt.y);
-  destination_button.size(destination_button.width, destination_prompt.height);
-  destination_button.mousePressed(submit_destination);
 
   generate_calendar_button = createButton('generate calendar');
   generate_calendar_button.position(10, 300);
@@ -108,14 +102,56 @@ function suggest_departure() {
       departure_picker.position(departure_prompt.x, departure_prompt.y + 25);
       departure_picker.size(departure_prompt.width, 25)
       var i = 0;
+
+      pickerOptionsDeparture = []
       while (i < 5) {
         departure_picker.option(location[i].name);
+        pickerOptionsDeparture.push(new pickerOptionDeparture(location[i].name, location[i].x, location[i].y));
         i++;
       }
       departure_picker.changed(select_departure);
     }
   }
 }
+
+//function to display a selected location from the dropdown in the prompt
+function select_departure(){
+  let selected = departure_picker.selected();
+  let chosenOption = getPickerOptionDeparture(selected);
+  departure_location_x = chosenOption.x;
+  departure_location_y = chosenOption.y;
+  departure_location_name = chosenOption.name.split(' ').join('%20');
+
+  departure_prompt.value(selected);
+
+  print("x " + departure_location_x);
+  print("y " + departure_location_y);
+  print(departure_location_name);
+
+  picked_departure = true;
+  departure_picker.remove();
+}
+
+function getPickerOptionDeparture(selected) {
+  if (pickerOptionsDeparture != []) {
+    var i = 0
+    while (i < 5) {
+      if (selected = pickerOptionsDeparture[i].name) {
+        return (pickerOptionsDeparture[i])
+      }
+      i++
+    }
+  }
+}
+
+class pickerOptionDeparture {
+  constructor(name, x, y) {
+    this.name = name;
+    this.x = x;
+    this.y = y;
+  }
+}
+
 
 function suggest_destination() {
   let initialInput = destination_prompt.value();
@@ -139,9 +175,11 @@ function suggest_destination() {
       destination_picker.position(destination_prompt.x,destination_prompt.y+25);
       destination_picker.size(destination_prompt.width, 25);
 
+      pickerOptionDeparture = [];
       var i = 0;
       while (i < 5) {
         destination_picker.option(location[i].name);
+        pickerOptionsDestination.push(new pickerOptionDestination(location[i].name, location[i].x, location[i].y));
         i++;
       }
       destination_picker.changed(select_destination);
@@ -149,68 +187,49 @@ function suggest_destination() {
   }
 }
 
-
-//function to display a selected location from the dropdown in the prompt
-function select_departure(){
-  let selected = departure_picker.selected();
-  departure_prompt.value(selected);
-  picked_departure = true;
-  departure_picker.remove();
-}
-
 function select_destination(){
   let selected = destination_picker.selected();
+  let chosenOption = getPickerOptionDestination(selected);
+  destination_location_x = chosenOption.x;
+  destination_location_y = chosenOption.y;
+  destination_location_name = chosenOption.name.split(' ').join('%20');
+
+  print("x " + destination_location_x);
+  print("y " + destination_location_y);
+  print(destination_location_name);
+
   destination_prompt.value(selected);
   picked_destination = true;
   destination_picker.remove();
 }
 
-
-
-
-function submit_departure() {
-  if(!departure_prompt.value()) throw 'Departure field cannot be empty!';
-
-  let departure = departure_prompt.value();
-
-  let response = rejseplanen_client.location(departure);
-
-  let location = response['LocationList']['CoordLocation'][0];
-
-  departure_prompt.value(location.name);
-
-  departure_location_x = location.x;
-  departure_location_y = location.y;
-  departure_location_name = location.name.split(' ').join('%20');
-
-  //print(departure_location_x);
-  //print(departure_location_y);
+function getPickerOptionDestination(selected) {
+  if (pickerOptionsDestination != []) {
+    var i = 0
+    while (i < 5) {
+      if (selected = pickerOptionsDestination[i].name) {
+        return (pickerOptionsDestination[i])
+      }
+      i++
+    }
+  }
+}
+class pickerOptionDestination {
+  constructor(name, x, y) {
+    this.name = name;
+    this.x = x;
+    this.y = y;
+  }
 }
 
 
-function submit_destination() {
-  if(!destination_prompt.value()) throw 'Destination field cannot be empty!';
 
-  let destination = destination_prompt.value();
 
-  let response = rejseplanen_client.location(destination);
-
-  let location = response['LocationList']['CoordLocation'][0];
-
-  destination_prompt.value(location.name);
-
-  destination_location_x = location.x;
-  destination_location_y = location.y;
-  destination_location_name = location.name.split(' ').join('%20');
-
-  //print(destination_location_x);
-  //print(destination_location_y);
-}
 
 function generate_calendar() {
-  if(!departure_location_name) submit_departure();
+  if(!departure_location_name) throw 'choose a departure!';
 
-  if(!destination_location_name) submit_destination();
+  if(!destination_location_name) throw 'choose a destination';
 
   if(!calendar) throw 'You must upload a calendar!'
   let arrival_trips = [];
