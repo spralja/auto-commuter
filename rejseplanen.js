@@ -76,6 +76,7 @@ class RejseplanenClient {
         // searching for trips mor than ~1 week before today, or more than several times after
         if(response['error'] !== undefined) {
             // alert the user of the error
+            alert(`Rejseplanen API error: ${response['error']} (refresh page)`)
             throw response['error'];
         }
 
