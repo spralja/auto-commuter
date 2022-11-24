@@ -249,11 +249,20 @@ class pickerOptionDestination {
 
 
 function generate_calendar() {
-  if(!departure_location_name) throw 'choose a departure!';
+  if(!departure_location_name) {
+    alert('You must choose a departure (refresh page)')
+    throw 'choose a departure!';
+  }
 
-  if(!destination_location_name) throw 'choose a destination';
+  if(!destination_location_name) {
+    alert('You must choose a destination (Refresh page)')
+    throw 'choose a destination';
+  }
 
-  if(!calendar) throw 'You must upload a calendar!'
+  if(!calendar) {
+    alert('You must upload a calendar (Refresh page)')
+    throw 'You must upload a calendar!'
+  }
   let arrival_trips = [];
   let departures_trips = [];
   let options = {
