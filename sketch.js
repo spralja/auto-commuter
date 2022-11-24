@@ -37,7 +37,7 @@ function setup() {
   departure_text = createElement('h4', 'Departure:')
   departure_text.position(10, 100);
 
-  departure_prompt = createInput().attribute('placeholder','ex.Fredriksgade.');
+  departure_prompt = createInput().attribute('placeholder','ex. Frederiksgade');
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
 
@@ -100,6 +100,7 @@ function suggest_departure() {
       departure_picker = createSelect();
       departure_picker.position(departure_prompt.x, departure_prompt.y + 25);
       departure_picker.size(departure_prompt.width, 25)
+      departure_picker.option('select')
       var i = 0;
 
       pickerOptionsDeparture = []
@@ -184,6 +185,8 @@ function suggest_destination() {
       destination_picker = createSelect();
       destination_picker.position(destination_prompt.x,destination_prompt.y+25);
       destination_picker.size(destination_prompt.width, 25);
+      destination_picker.option('select')
+
 
       pickerOptionDeparture = [];
       var i = 0;
@@ -202,7 +205,7 @@ function suggest_destination() {
         pickerOptionsDestination.push(new pickerOptionDestination(location[i].name, location[i].x, location[i].y));
         i++;
       }
-      destination_picker.changed(select_destination);
+      destination_picker.input(select_destination);
     }
   }
 }
