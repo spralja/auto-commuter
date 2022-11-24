@@ -37,7 +37,6 @@ function setup() {
   departure_text = createElement('h4', 'Departure:')
   departure_text.position(10, 100);
 
-
   departure_prompt = createInput().attribute('placeholder','ex. Roskilde St.');
   departure_prompt.position(departure_text.x, departure_text.y + 40);
   departure_prompt.size(200, departure_prompt.height);
@@ -94,9 +93,9 @@ function suggest_departure() {
       departure_picker.remove();
     } else {
       let response = rejseplanen_client.location(initialInput);
-      let location_stops = response["LocationList"]["StopLocation"];
-      let location_coors = response["LocationList"]["CoordLocation"];
-      let location = location_stops.concat(location_coors);
+      //let location_stops = response["LocationList"]["StopLocation"];
+      //let location_coors = response["LocationList"]["CoordLocation"];
+      let location = response["LocationList"]["CoordLocation"];
 
       departure_picker = createSelect();
       departure_picker.position(departure_prompt.x, departure_prompt.y + 25);
@@ -104,7 +103,20 @@ function suggest_departure() {
       var i = 0;
 
       pickerOptionsDeparture = []
+
+      if (location === undefined ){
+        departure_picker.option('no options')
+        return;
+      }
+      if(! Array.isArray(location)) location = [location];
+
+
       while (i < 5) {
+
+
+        if(i >= location.length){
+          break
+        }
         departure_picker.option(location[i].name);
         pickerOptionsDeparture.push(new pickerOptionDeparture(location[i].name, location[i].x, location[i].y));
         i++;
@@ -133,14 +145,14 @@ function select_departure(){
 }
 
 function getPickerOptionDeparture(selected) {
-  if (pickerOptionsDeparture != []) {
+  //if (pickerOptionsDeparture != []) {
     var i = 0
     while (i < 5) {
-      if (selected = pickerOptionsDeparture[i].name) {
+      if (selected == pickerOptionsDeparture[i].name) {
         return (pickerOptionsDeparture[i])
       }
       i++
-    }
+   // }
   }
 }
 
@@ -167,9 +179,7 @@ function suggest_destination() {
       destination_picker.remove();
     } else {
       let response = rejseplanen_client.location(initialInput);
-      let location_stops = response["LocationList"]["StopLocation"];
-      let location_coors = response["LocationList"]["CoordLocation"];
-      let location = location_stops.concat(location_coors);
+      let location = response["LocationList"]["CoordLocation"];
 
       destination_picker = createSelect();
       destination_picker.position(destination_prompt.x,destination_prompt.y+25);
@@ -177,7 +187,17 @@ function suggest_destination() {
 
       pickerOptionDeparture = [];
       var i = 0;
+      if (location === undefined ){
+        destination_picker.option('no options')
+        return;
+      }
+
+      if(! Array.isArray(location)) location = [location];
       while (i < 5) {
+
+        if(i >= location.length){
+          break
+        }
         destination_picker.option(location[i].name);
         pickerOptionsDestination.push(new pickerOptionDestination(location[i].name, location[i].x, location[i].y));
         i++;
@@ -189,6 +209,8 @@ function suggest_destination() {
 
 function select_destination(){
   let selected = destination_picker.selected();
+  destination_prompt.value(selected);
+
   let chosenOption = getPickerOptionDestination(selected);
   destination_location_x = chosenOption.x;
   destination_location_y = chosenOption.y;
@@ -198,7 +220,7 @@ function select_destination(){
   print("y " + destination_location_y);
   print(destination_location_name);
 
-  destination_prompt.value(selected);
+
   picked_destination = true;
   destination_picker.remove();
 }
